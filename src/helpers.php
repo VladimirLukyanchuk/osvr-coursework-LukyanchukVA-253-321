@@ -41,3 +41,16 @@ function dateLabel(string $date): string
 {
     return date('d.m.Y', strtotime($date));
 }
+
+function wordForm(int $count, array $forms): string
+{
+    $lastTwo = abs($count) % 100;
+    if ($lastTwo >= 11 && $lastTwo <= 14) {
+        return $forms[2];
+    }
+    return match (abs($count) % 10) {
+        1 => $forms[0],
+        2, 3, 4 => $forms[1],
+        default => $forms[2],
+    };
+}

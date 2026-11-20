@@ -6,7 +6,7 @@
     <div class="article-body"><?php foreach (preg_split('/\R\s*\R/u', $article->body) as $paragraph): ?><p><?= e($paragraph) ?></p><?php endforeach; ?></div>
     <div class="reading-end"><p>Заложи время на практику — так тема запомнится лучше.</p><div class="actions"><a class="button small" href="<?= e(url('/plan')) ?>">Составить план</a><?php if ($user && (int) $user->id === (int) $article->author_id): ?><a href="<?= e(url('/cabinet/' . $article->id . '/edit')) ?>">Редактировать статью</a><?php endif; ?></div></div>
     <section class="comments" id="comments">
-        <div class="section-top"><h2>Обсуждение</h2><span class="muted"><?= count($comments) ?> комментариев</span></div>
+        <div class="section-top"><h2>Обсуждение</h2><span class="muted"><?= count($comments) ?> <?= wordForm(count($comments), ['комментарий', 'комментария', 'комментариев']) ?></span></div>
         <?php if (!$comments): ?><p class="muted">Здесь пока тихо. Поделись вопросом или результатом практики.</p><?php endif; ?>
         <?php foreach ($comments as $comment): ?>
         <article class="comment panel" id="comment<?= (int) $comment->id ?>">
