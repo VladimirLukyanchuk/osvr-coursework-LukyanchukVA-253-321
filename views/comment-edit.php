@@ -1,0 +1,2 @@
+<section class="page-heading"><p class="eyebrow">Обсуждение</p><h1>Редактирование комментария</h1></section>
+<form class="panel form editor" method="post" action="<?= e(url('/comments/' . $comment->id . '/edit')) ?>"><?= csrf() ?><label>Текст комментария<textarea name="body" rows="6" minlength="3" maxlength="2000" required><?= e($values['body'] ?? $comment->body) ?></textarea></label><div class="actions"><button class="button">Сохранить</button><a href="<?= e(url('/articles/' . $comment->article_id . '#comment' . $comment->id)) ?>">Отмена</a></div></form>

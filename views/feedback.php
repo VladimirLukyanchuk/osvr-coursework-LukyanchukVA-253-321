@@ -1,0 +1,7 @@
+<div class="split-page"><section><p class="eyebrow">Есть идея?</p><h1>Давай сделаем<br> материалы лучше</h1><p class="lead">Задай вопрос, предложи тему или расскажи об ошибке. Нам важно, что помогает тебе разбираться в веб-разработке.</p><div class="feedback-note"><h3>Как это работает</h3><p>Обращение сохраняется в базе проекта. Автоматические письма не отправляются.</p><p class="muted">Это учебный сайт. Для проверки используй вымышленные контактные данные.</p></div></section>
+<form class="panel form" method="post" action="<?= e(url('/feedback')) ?>"><?= csrf() ?>
+    <label>Имя<input name="name" required minlength="2" maxlength="100" autocomplete="name" value="<?= e($values['name'] ?? $user?->name ?? '') ?>"></label>
+    <label>Email<input type="email" name="email" required maxlength="200" autocomplete="email" value="<?= e($values['email'] ?? $user?->email ?? '') ?>"></label>
+    <label>Тип обращения<select name="type"><?php foreach (['question' => 'Вопрос', 'suggestion' => 'Предложение', 'error' => 'Ошибка на сайте'] as $key => $label): ?><option value="<?= e($key) ?>" <?= ($values['type'] ?? '') === $key ? 'selected' : '' ?>><?= e($label) ?></option><?php endforeach; ?></select></label>
+    <label>Сообщение<textarea name="message" rows="6" minlength="10" maxlength="3000" required placeholder="Расскажи чуть подробнее…"><?= e($values['message'] ?? '') ?></textarea></label><div><button class="button">Отправить обращение</button></div>
+</form></div>

@@ -1,0 +1,7 @@
+<section class="page-heading"><p class="eyebrow">Личный кабинет</p><h1>Привет, <?= e($user->name) ?>!</h1><p class="lead">Здесь собраны твои материалы. Можно добавить новый разбор или вернуться к уже опубликованному.</p></section>
+<div class="section-top"><h2>Мои материалы · <?= $listing['total'] ?></h2><a class="button" href="<?= e(url('/cabinet/create')) ?>">Новый материал</a></div>
+<section class="my-list">
+<?php foreach ($listing['items'] as $article): ?><article class="my-item"><div><span class="category"><?= e(category($article->category)) ?></span><h2><a href="<?= e(url('/articles/' . $article->id)) ?>"><?= e($article->title) ?></a></h2><p class="muted"><?= e(dateLabel($article->created_at)) ?> · <?= (int) $article->read_minutes + (int) $article->practice_minutes ?> мин с практикой</p></div><div class="actions"><a href="<?= e(url('/cabinet/' . $article->id . '/edit')) ?>">Изменить</a><form class="delete-form" method="post" action="<?= e(url('/cabinet/' . $article->id . '/delete')) ?>"><?= csrf() ?><button class="text-button danger">Удалить</button></form></div></article><?php endforeach; ?>
+<?php if (!$listing['items']): ?><div class="panel empty"><h2>Первый материал начинается с идеи</h2><p>Разобрался в теме? Поделись объяснением и небольшим заданием для практики.</p></div><?php endif; ?>
+<?php $paginationPath = '/cabinet'; require ROOT . '/views/partials/pagination.php'; ?>
+</section>

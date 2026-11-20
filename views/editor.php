@@ -1,0 +1,9 @@
+<?php $value = static fn ($key, $default = '') => $values[$key] ?? $article->$key ?? $default; ?>
+<section class="page-heading"><p class="eyebrow">Твой опыт пригодится другим</p><h1><?= $article->id ? 'Редактирование материала' : 'Новый материал' ?></h1><p class="lead">Объясни тему своими словами и предложи небольшое практическое задание.</p></section>
+<form class="panel form editor" method="post" action="<?= e(url($article->id ? '/cabinet/' . $article->id . '/edit' : '/cabinet/create')) ?>"><?= csrf() ?>
+    <label>Заголовок<input name="title" minlength="5" maxlength="150" required value="<?= e($value('title')) ?>"></label>
+    <label>Краткое описание<textarea name="summary" rows="3" minlength="15" maxlength="350" required><?= e($value('summary')) ?></textarea></label>
+    <div class="form-grid three"><label>Тема<select name="category"><?php foreach (App\Models\Article::CATEGORIES as $key => $label): ?><option value="<?= e($key) ?>" <?= $value('category', 'php') === $key ? 'selected' : '' ?>><?= e($label) ?></option><?php endforeach; ?></select></label><label>Чтение, минут<input type="number" name="read_minutes" min="1" max="180" step="1" required value="<?= e($value('read_minutes', 5)) ?>"></label><label>Практика, минут<input type="number" name="practice_minutes" min="0" max="480" step="1" required value="<?= e($value('practice_minutes', 15)) ?>"></label></div>
+    <label>Текст материала<textarea name="body" rows="14" minlength="50" maxlength="15000" required aria-describedby="body-hint"><?= e($value('body')) ?></textarea></label><p id="body-hint" class="muted">Разделяй абзацы пустой строкой. HTML выводится как обычный текст.</p>
+    <div class="actions"><button class="button"><?= $article->id ? 'Сохранить изменения' : 'Опубликовать материал' ?></button><a href="<?= e(url('/cabinet')) ?>">Вернуться в кабинет</a></div>
+</form>
